@@ -12,20 +12,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/produtos")
-@CrossOrigin(origins = "*") // Permite chamadas do Vue.js em desenvolvimento
+@CrossOrigin(origins = "*") 
 public class ProdutoController {
 
     @Autowired
     private ProdutoService service;
 
-    // GET /api/produtos → Lista todos os produtos
     @GetMapping
     public ResponseEntity<List<Produto>> listarTodos() {
         List<Produto> produtos = service.listarTodos();
         return ResponseEntity.ok(produtos);
     }
 
-    // GET /api/produtos/{id} → Busca produto por ID
     @GetMapping("/{id}")
     public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id)
@@ -33,21 +31,18 @@ public class ProdutoController {
             .orElse(ResponseEntity.notFound().build());
     }
 
-    // GET /api/produtos/buscar?termo=xxx → Busca por nome ou categoria
     @GetMapping("/buscar")
     public ResponseEntity<List<Produto>> buscar(@RequestParam String termo) {
         List<Produto> produtos = service.buscarPorTermo(termo);
         return ResponseEntity.ok(produtos);
     }
 
-    // POST /api/produtos → Cria novo produto
     @PostMapping
     public ResponseEntity<Produto> criar(@Valid @RequestBody Produto produto) {
         Produto salvo = service.salvar(produto);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
-    // PUT /api/produtos/{id} → Atualiza produto existente
     @PutMapping("/{id}")
     public ResponseEntity<Produto> atualizar(@PathVariable Long id,
                                               @Valid @RequestBody Produto produto) {
@@ -59,7 +54,6 @@ public class ProdutoController {
         }
     }
 
-    // DELETE /api/produtos/{id} → Remove produto
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         try {

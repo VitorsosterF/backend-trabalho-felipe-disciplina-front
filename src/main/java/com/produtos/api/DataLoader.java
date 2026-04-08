@@ -16,7 +16,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Dados iniciais para facilitar testes
+        // dados iniciais para facilitar testes
         repository.save(new Produto(null, "Notebook Dell Inspiron", "Notebook 15\" Intel i5, 8GB RAM, 256GB SSD",
                 new BigDecimal("3499.99"), 10, "Eletrônicos", null, null));
         repository.save(new Produto(null, "Mouse Logitech MX Master", "Mouse sem fio ergonômico",
